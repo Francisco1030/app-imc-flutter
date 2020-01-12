@@ -25,6 +25,29 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
+      backgroundColor: _colorFromHex("#ffffff"),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Icon(Icons.person_outline, size: 120.0, color: _colorFromHex("#363636")),
+          TextField(keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: "Peso (kg)",
+              labelStyle: TextStyle(color: _colorFromHex("#1C1C1C")),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                ),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+              ),
+              
+              border: const OutlineInputBorder(),
+            ),
+            //textAlign: TextAlign.center,
+            style: TextStyle(color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
+          )
+        ],
+      ),
     );
   }
 }
