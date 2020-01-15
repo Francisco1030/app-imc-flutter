@@ -12,9 +12,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final TextEditingController _controladorPeso = TextEditingController();
-  final TextEditingController _controladorAltura = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +72,23 @@ class _HomeState extends State<Home> {
                   //textAlign: TextAlign.center,
                   style: TextStyle(
                       color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
+                ),
+              ),
+              Container(
+                height: 80.0,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: RaisedButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Calcular",
+                      style: TextStyle(color: Colors.white, fontSize: 25.0),
+                    ),
+                    color: Colors.black,
+                     shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0),
+                       side: BorderSide(color: Colors.white)),
+                  ),
                 ),
               ),
             ],
