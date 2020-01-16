@@ -15,12 +15,16 @@ class _HomeState extends State<Home> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String _infoText = "Informe seus dados!";
 
   void _resetFields() {
     weightController.text = "";
     heightController.text = "";
-    _infoText = "Informe seus dados!";
+    setState(() {
+      _infoText = "Informe seus dados!";
+    });
   }
 
   void calculate() {
@@ -62,82 +66,101 @@ class _HomeState extends State<Home> {
       backgroundColor: _colorFromHex("#ffffff"),
       body: SingleChildScrollView(
           child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Icon(Icons.person_outline,
-                size: 120.0, color: _colorFromHex("#363636")),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Peso (kg)",
-                  labelStyle: TextStyle(color: _colorFromHex("#1C1C1C")),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  border: const OutlineInputBorder(),
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Icon(Icons.person_outline,
+                        size: 120.0, color: _colorFromHex("#363636")),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Peso (kg)",
+                          labelStyle:
+                              TextStyle(color: _colorFromHex("#1C1C1C")),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          border: const OutlineInputBorder(),
+                        ),
+                        //textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
+                        controller: weightController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Insira seu peso!";
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Altura (cm)",
+                          labelStyle:
+                              TextStyle(color: _colorFromHex("#1C1C1C")),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+                          border: const OutlineInputBorder(),
+                        ),
+                        //textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
+                        controller: heightController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Insira sua altura!";
+                          }
+                        },
+                      ),
+                    ),
+                    Container(
+                      height: 80.0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 18.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              calculate();
+                            }
+                          },
+                          child: Text(
+                            "Calcular",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.0),
+                          ),
+                          color: Colors.black,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0),
+                              side: BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        _infoText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 25.0),
+                      ),
+                    ),
+                  ],
                 ),
-                //textAlign: TextAlign.center,
-                style:
-                    TextStyle(color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
-                controller: weightController,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Altura (cm)",
-                  labelStyle: TextStyle(color: _colorFromHex("#1C1C1C")),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  border: const OutlineInputBorder(),
-                ),
-                //textAlign: TextAlign.center,
-                style:
-                    TextStyle(color: _colorFromHex("#1C1C1C"), fontSize: 25.0),
-                controller: heightController,
-              ),
-            ),
-            Container(
-              height: 80.0,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: RaisedButton(
-                  onPressed: calculate,
-                  child: Text(
-                    "Calcular",
-                    style: TextStyle(color: Colors.white, fontSize: 25.0),
-                  ),
-                  color: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(10.0),
-                      side: BorderSide(color: Colors.white)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: Text(
-                _infoText,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 25.0),
-              ),
-            ),
-          ],
-        ),
-      )),
+              ))),
     );
   }
 }
